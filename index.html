@@ -257,6 +257,14 @@ function saveCase(){
   });
   const total=parseFloat(ttc.value||0);
   if(total>0)d.invoices.unshift({date:new Date().toLocaleDateString('fr-FR'),client:client.value,total:total,objet:'Intervention atelier'});
+  if(ttc.value){
+  d.invoices = d.invoices || [];
+  d.invoices.unshift({
+    date:new Date().toLocaleDateString(),
+    client:client.value,
+    montant:parseFloat(ttc.value)
+  });
+}
   setDb(d); alert('Dossier enregistré');
 }
 function makePrompt(){
