@@ -261,7 +261,7 @@ function render(){
   k3.textContent=d.planning.length;
   k4.textContent=money((d.invoices||[]).reduce((a,b)=>a+Number(b.total||0),0));
   last.innerHTML=d.cases.length?d.cases.slice(0,6).map(c=>`<div class="item"><strong>${esc([c.marque,c.modele,c.immat].filter(Boolean).join(' '))}</strong><br><span class="lab">${esc(c.client)} • ${esc(c.ts)}</span></div>`).join(''):'<div class="item">Aucun dossier</div>';
-  plist.innerHTML=d.planning.length?d.planning.map(p=>`<div class="item"><strong>${esc(p.date)} ${esc(p.time)}</strong><br>${esc(p.client)} • ${esc(p.veh)}<br><span class="badge">${esc(p.status)}</span><div class="lab">${esc(p.job)}</div></div>`).join(''):'<div class="item">Aucun RDV</div>';
+${esc(p.heure || p.time || "")}</strong><br>${esc(p.client || "")} • ${esc(p.vehicule || p.veh || "")}<br><span class="badge">${esc(p.statut || p.status || "")}</span><div class="lab">${esc(p.travail || p.job || "")}</div><div class="lab">${p.prix ? p.prix + " €" : "Devis à faire"}</div></div>`).join(''):'<div class="item">Aucun RDV</div>';
   renderClients();
 }
   function ajouterRDV() {
