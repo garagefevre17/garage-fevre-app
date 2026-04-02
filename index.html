@@ -296,9 +296,10 @@ item.status = status;
 
 function deletePlanning(id){
   const d = db();
-  d.planning = d.planning.filter(x => x.id !== id);
+  d.planning = d.planning.filter(x => Number(x.id) !== Number(id));
   setDb(d);
   render();
+}
 }
 function render(){
   const d=db();
