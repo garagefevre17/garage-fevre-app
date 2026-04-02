@@ -134,6 +134,8 @@ button.btn{border:none;border-radius:14px;padding:12px 14px;cursor:pointer}
         <div class="row">
           <div><label>Client</label><input id="pclient"></div>
           <div><label>Véhicule</label><input id="pveh"></div>
+          <div><label>Immatriculation</label><input id="pimmat"></div>
+<div><label>Année</label><input id="pannee"></div>
         </div>
         <label>Travail prévu</label><textarea id="pjob"></textarea>
         <div>
@@ -288,7 +290,7 @@ function render(){
   const statut = document.getElementById("pstatus")?.value || "À faire";
   const client = document.getElementById("pclient")?.value || "";
   const vehicule = document.getElementById("pvehicule")?.value || "";
-  const travail = document.getElementById("pjob")?.value || "";
+  const annee = document.getElementById("pannee")?.value;
     const immat = document.getElementById("pimmat")?.value || "";
 const annee = document.getElementById("pannee")?.value || "";
   const prixInput = document.getElementById("pprix")?.value;
