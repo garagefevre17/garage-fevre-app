@@ -283,6 +283,23 @@ item.status = status;
     render();
   }
 }
+  function cancelPlanning(id){
+  const d = db();
+  const item = d.planning.find(x => x.id === id);
+  if(item){
+    item.statut = "Annulé";
+    item.status = "Annulé";
+    setDb(d);
+    render();
+  }
+}
+
+function deletePlanning(id){
+  const d = db();
+  d.planning = d.planning.filter(x => x.id !== id);
+  setDb(d);
+  render();
+}
 function render(){
   const d=db();
   const clients=[...new Set(d.cases.map(x=>x.client).filter(Boolean))];
