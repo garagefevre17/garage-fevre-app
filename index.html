@@ -319,16 +319,7 @@ if (changed) {
   k2.textContent=clients.length;
   k3.textContent=d.planning.length;
   k4.textContent=money((d.invoices||[]).reduce((a,b)=>a+Number(b.total||0),0));
-plist.innerHTML = d.planning
-  .filter(p => (p.statut || p.status || "") !== "Terminé")
-  .map(p => `
-  <div class="item">
-    <strong>${esc(p.heure || p.time || "")}</strong><br>
-    ${esc(p.client || "")} • ${esc(p.vehicule || p.veh || "")}<br>
 
-    <div class="lab">🚗 ${esc(p.immat || "")} • 📅 ${esc(p.annee || "")}</div>
-    <div class="lab">${esc(p.travail || p.job || "")}</div>
-    <div class="lab">${p.prix ? p.prix + " €" : "Devis à faire"}</div>
 
     
 
