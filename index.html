@@ -297,12 +297,22 @@ async function copyText(id){try{await navigator.clipboard.writeText(document.get
 function exportDB(){const blob=new Blob([JSON.stringify(db(),null,2)],{type:'application/json'}); const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='garage_fevre_backup.json'; a.click();}
 function importDB(e){const f=e.target.files[0]; if(!f)return; const r=new FileReader(); r.onload=()=>{localStorage.setItem(KEY,r.result); render(); alert('Importé');}; r.readAsText(f);}
 function resetDB(){if(confirm('Tout supprimer ?')){localStorage.removeItem(KEY); localStorage.removeItem(KEY+'_draft'); render();}}
-function clearForm(){['client','tel','marque','modele','immat','sympt','codes','diag','rep','ttc'].forEach(id=>document.getElementById(id).value=''); prompt.textContent='Aucun prompt pour le moment.'; saveDraft();}
 function renderClients(){
-  const q=(search.value||'').toLowerCase().trim();
-  const d=db();
-  const rows=d.cases.filter(x=>!q || JSON.stringify(x).toLowerCase().includes(q));
-  clist.innerHTML=rows.length?rows.map(x=>`<div class="item"><strong>${esc(x.client||'Client')}</strong><br><span class="lab">${esc([x.marque,x.modele,x.immat].filter(Boolean).join(' '))}</span><br><span class="lab">${esc(x.tel||'')}</span></div>`).join(''):'<div class="item">Aucun client</div>';
+  const q = (search.value || '').toLowerCase();
+  const d = db();
+
+  const rows = d.cases.filter(x =>
+    !q || JSON.stringify(x).toLowerCase().includes(q)
+  );
+
+  clist.innerHTML = rows.length ? rows.map(x => `
+    <div class="item">
+      <strong>${esc(x.client || "")}</strong><br>
+      📞 ${esc(x.tel || "")}<br>
+      🚗 ${esc(x.marque || "")} ${esc(x.modele || "")}<br>
+      📅 ${esc(x.ts || "")}
+    </div>
+  `).join('') : '<div class="item">Aucun client</div>';
 }
   function setPlanningStatus(id, status){
   const d = db();
