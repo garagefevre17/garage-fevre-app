@@ -257,12 +257,12 @@ function saveCase(){
   });
   const total=parseFloat(ttc.value||0);
   
-  if(ttc.value){
+  if(total>0){
   d.invoices = d.invoices || [];
   d.invoices.unshift({
     date:new Date().toLocaleDateString(),
     client:client.value,
-    montant:parseFloat(ttc.value)
+    montant:total
   });
 }
   setDb(d); alert('Dossier enregistré');
