@@ -313,8 +313,8 @@ const prix = prixInput ? Number(prixInput) : null;
     travail,
     prix
   };
-
-  d.planning.push(rdv);
+d.planning.push(rdv);
+d.planning.sort((a,b)=> (a.heure||"").localeCompare(b.heure||""));
 
   d.cases.push({
     id: Date.now() + 1,
