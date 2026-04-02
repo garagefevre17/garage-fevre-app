@@ -248,9 +248,19 @@ function makePrompt(){
     "Donne :\n1. Causes probables\n2. Tests à faire\n3. Diagnostic probable\n4. Réparation recommandée";
 }
 function savePlan(){
-  const d=db();
-  d.planning.unshift({date:pdate.value,time:ptime.value,status:pstatus.value,client:pclient.value,veh:pveh.value,job:pjob.value});
-  setDb(d); alert('RDV ajouté');
+  const d = db();
+  d.planning.unshift({
+    id: Date.now(),
+    date: pdate.value,
+    time: ptime.value,
+    statut: pstatus.value,
+    status: pstatus.value,
+    client: pclient.value,
+    veh: pveh.value,
+    job: pjob.value
+  });
+  setDb(d);
+  alert('RDV ajouté');
 }
 function genSMS(){
   const n=sname.value||client.value||'client';
