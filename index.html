@@ -275,7 +275,7 @@ function renderClients(){
 }
   function setPlanningStatus(id, status){
   const d = db();
-  const item = d.planning.find(x => x.id === id);
+  const item = d.planning.find(x => Number(x.id) === Number(id));
   if(item){
     item.statut = status;
 item.status = status;
