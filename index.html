@@ -327,7 +327,7 @@ const prix = prixInput ? Number(prixInput) : null;
     prix
   };
 d.planning.push(rdv);
-d.planning.sort((a,b)=> (a.heure||"").localeCompare(b.heure||""));
+d.planning.sort((a,b)=>(((a.statut||"") === "Urgent") ? -1 : ((b.statut||"") === "Urgent") ? 1 : ((a.date||"") + " " + (a.heure||a.time||"")).localeCompare((b.date||"") + " " + (b.heure||b.time||""))));
 
   d.cases.push({
     id: Date.now() + 1,
