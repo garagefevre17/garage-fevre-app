@@ -256,7 +256,7 @@ function saveCase(){
     sympt:sympt.value,codes:codes.value,diag:diag.value,rep:rep.value
   });
   const total=parseFloat(ttc.value||0);
-  if(total>0)d.invoices.unshift({date:new Date().toLocaleDateString('fr-FR'),client:client.value,total:total,objet:'Intervention atelier'});
+  
   if(ttc.value){
   d.invoices = d.invoices || [];
   d.invoices.unshift({
