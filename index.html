@@ -220,7 +220,12 @@ button.btn{border:none;border-radius:14px;padding:12px 14px;cursor:pointer}
 const KEY='garage_fevre_final_hebergement';
 function db(){try{return JSON.parse(localStorage.getItem(KEY)||'{"cases":[],"planning":[],"invoices":[]}')}catch(e){return {cases:[],planning:[],invoices:[]}}}
 function setDb(d){localStorage.setItem(KEY,JSON.stringify(d)); render(); status.innerHTML='<span class="ok">Autosave sauvegardé.</span>';}
-function show(v){document.querySelectorAll('.view').forEach(x=>x.classList.remove('active')); document.getElementById(v).classList.add('active'); document.querySelectorAll('.tabs button').forEach(x=>x.classList.remove('active')); document.querySelector('.tabs button[data-view="'+v+'"]').classList.add('active');}
+function show(v){
+  document.querySelectorAll('.view').forEach(x=>x.classList.remove('active'));
+  document.getElementById(v).classList.add('active');
+  document.querySelectorAll('.tabs button').forEach(x=>x.classList.remove('active'));
+  document.querySelector('.tabs button[data-view="'+v+'"]').classList.add('active');
+}
 document.addEventListener('DOMContentLoaded', () => {
 
   document.querySelectorAll('.tabs button').forEach(b => {
