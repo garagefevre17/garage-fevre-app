@@ -277,6 +277,62 @@ function render(){
     render();
   }
 }
+  function savePlanningToGarage() {
+
+  const d = db();
+
+  const date = document.getElementById("pdate")?.value || "";
+  const heure = document.getElementById("ptime")?.value || "";
+  const statut = document.getElementById("pstatus")?.value || "À faire";
+  const client = document.getElementById("pclient")?.value || "";
+  const vehicule = document.getElementById("pvehicule")?.value || "";
+  const travail = document.getElementById("ptravail")?.value || "";
+  const prixStr = document.getElementById("pprix")?.value || "0";
+  const prix = Number(prixStr || 0);
+
+  if (!date || !heure || !client) {
+    alert("Merci de remplir date, heure et client");
+    return;
+  }
+
+  const rdv = {
+    id: Date.now(),
+    date,
+    heure,
+    statut,
+    client,
+    vehicule,
+    travail,
+    prix
+  };
+
+  d.planning.push(rdv);
+
+  d.cases.push({
+    id: Date.now() + 1,
+    client,
+    tel: "",
+    vehicule,
+    date,
+    status: statut,
+    work: travail,
+    total: prix,
+    source: "planning"
+  });
+
+  saveDB(d);
+  render();
+
+  document.getElementById("pdate").value = "";
+  document.getElementById("ptime").value = "";
+  if (document.getElementById("pstatus")) document.getElementById("pstatus").value = "À faire";
+  document.getElementById("pclient").value = "";
+  document.getElementById("pvehicule").value = "";
+  if (document.getElementById("ptravail")) document.getElementById("ptravail").value = "";
+  if (document.getElementById("pprix")) document.getElementById("pprix").value = "0";
+
+  alert("RDV enregistré 🔥");
+}
 loadDraft();
 render();
 </script>
