@@ -367,4 +367,24 @@ plist.innerHTML = d.planning
   </div>
 `)
 .join('') || '<div class="item">Aucun RDV</div>';
-  doneList.innerHTML = ...
+  doneList.innerHTML = d.planning.filter(p => (p.statut || p.status || "") === "Terminé").length
+  ? d.planning
+      .filter(p => (p.statut || p.status || "") === "Terminé")
+      .map(p => `<div class="item">
+        <strong>${esc(p.heure || p.time || "")}</strong><br>
+        ${esc(p.client || "")} • ${esc(p.vehicule || p.veh || "")}<br>
+        <div class="lab">🚗 ${esc(p.immat || "")} • 📅 ${esc(p.annee || "")}</div>
+        <div class="lab">${esc(p.travail || p.job || "")}</div>
+        <div class="lab">${p.prix ? p.prix + " €" : "Devis à faire"}</div>
+        <div class="lab" style="color:#16a34a;font-weight:bold;">✅ TERMINÉ</div>
+      </div>`)
+                .join('')
+  : '<div class="item">Aucun véhicule terminé</div>';
+
+renderClients();
+}
+      .join('')
+  : '<div class="item">Aucun véhicule terminé</div>';
+
+renderClients();
+}
