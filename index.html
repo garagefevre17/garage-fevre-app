@@ -330,20 +330,7 @@ plist.innerHTML = d.planning
     <div class="lab">${esc(p.travail || p.job || "")}</div>
     <div class="lab">${p.prix ? p.prix + " €" : "Devis à faire"}</div>
 
-    <div class="lab">
-      <span style="display:inline-block;padding:6px 12px;border-radius:999px;
-      background:${
-        (p.statut || p.status || "") === "Annulé" ? "#ef4444" :
-        (p.statut || p.status || "") === "En cours" ? "#f59e0b" :
-        (p.statut || p.status || "") === "Urgent" ? "#b91c1c" :
-        (p.statut || p.status || "") === "En attente pièces" ? "#2563eb" :
-        (p.statut || p.status || "") === "Client absent" ? "#6b7280" :
-        "#eab308"
-      };
-      color:#fff;font-weight:600;font-size:12px;">
-        ${(p.statut || p.status || "À faire")}
-      </span>
-    </div>
+    
 
 plist.innerHTML = d.planning
   .filter(p => (p.statut || p.status || "") !== "Terminé")
