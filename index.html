@@ -289,9 +289,9 @@ function render(){
   const statut = document.getElementById("pstatus")?.value || "À faire";
   const client = document.getElementById("pclient")?.value || "";
   const vehicule = document.getElementById("pvehicule")?.value || "";
-  const travail = document.getElementById("ptravail")?.value || "";
-  const prixStr = document.getElementById("pprix")?.value || "0";
-  const prix = Number(prixStr || 0);
+  const travail = document.getElementById("pjob")?.value || "";
+  const prixInput = document.getElementById("pprix")?.value;
+const prix = prixInput ? Number(prixInput) : null;
 
   if (!date || !heure || !client) {
     alert("Merci de remplir date, heure et client");
