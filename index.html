@@ -262,7 +262,7 @@ function render(){
   k2.textContent=clients.length;
   k3.textContent=d.planning.length;
   k4.textContent=money((d.invoices||[]).reduce((a,b)=>a+Number(b.total||0),0));
-  plist.innerHTML=d.planning.length?d.planning.map(p=>`<div class="item"><strong>${esc(p.heure || p.time || "")}</strong><br>${esc(p.client || "")} • ${esc(p.vehicule || p.veh || "")}<br>🚗 ${esc(p.immat || "")} • 📅 ${esc(p.annee || "")}<br><span class="badge">${esc(p.statut || p.status || "")}</span><div class="lab">${esc(p.travail || p.job || "")}</div><div class="lab">${p.prix ? p.prix + " €" : "Devis à faire"}</div></div>`).join(''):'<div class="item">Aucun RDV</div>';
+  plist.innerHTML=d.planning.length?d.planning.map(p=>`<div class="item"><strong>${esc(p.heure || p.time || "")}</strong><br>${esc(p.client || "")} • ${esc(p.vehicule || p.veh || "")}<br><div class="lab">🚗 ${esc(p.immat || "")} • 📅 ${esc(p.annee || "")}</div><div class="lab">${esc(p.travail || p.job || "")}</div><div class="lab">${p.prix ? p.prix + " €" : "Devis à faire"}</div><div class="lab"><span style="display:inline-block;padding:6px 10px;border-radius:999px;background:${(p.statut || p.status || "") === "Terminé" ? "#16a34a" : (p.statut || p.status || "") === "En cours" ? "#f59e0b" : "#3b82f6"};color:#fff;font-weight:bold;">${esc(p.statut || p.status || "À faire")}</span></div></div>`).join(''):'<div class="item">Aucun RDV</div>';
   renderClients();
 }
   function ajouterRDV() {
