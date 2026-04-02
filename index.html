@@ -303,6 +303,17 @@ function deletePlanning(id){
 }
 function render(){
   const d=db();
+  let changed = false;
+d.planning = d.planning.map((p, i) => {
+  if (p.id == null || p.id === "") {
+    changed = true;
+    return { ...p, id: Date.now() + i };
+  }
+  return p;
+});
+if (changed) {
+  localStorage.setItem(KEY, JSON.stringify(d));
+}
   const clients=[...new Set(d.cases.map(x=>x.client).filter(Boolean))];
   k1.textContent=d.cases.length;
   k2.textContent=clients.length;
