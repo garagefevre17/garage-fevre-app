@@ -345,9 +345,7 @@ plist.innerHTML = d.planning
       </span>
     </div>
 
-    <div class="lab" style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap;">
-      ${(p.statut || p.status || "") !== "Annulé"
-        `<div class="lab" style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap;">
+    `<div class="lab" style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap;">
 
   ${(p.statut || p.status || "") !== "Annulé"
     ? `<button onclick="setPlanningStatus('${p.id}', 'Terminé')" style="background:#16a34a;color:#fff;border:none;padding:8px 12px;border-radius:8px;">✅ Terminer</button>`
