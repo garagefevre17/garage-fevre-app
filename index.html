@@ -221,8 +221,24 @@ const KEY='garage_fevre_final_hebergement';
 function db(){try{return JSON.parse(localStorage.getItem(KEY)||'{"cases":[],"planning":[],"invoices":[]}')}catch(e){return {cases:[],planning:[],invoices:[]}}}
 function setDb(d){localStorage.setItem(KEY,JSON.stringify(d)); render(); status.innerHTML='<span class="ok">Autosave sauvegardé.</span>';}
 function show(v){document.querySelectorAll('.view').forEach(x=>x.classList.remove('active')); document.getElementById(v).classList.add('active'); document.querySelectorAll('.tabs button').forEach(x=>x.classList.remove('active')); document.querySelector('.tabs button[data-view="'+v+'"]').classList.add('active');}
-document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>show(b.dataset.view));
-document.querySelectorAll('input,textarea,select').forEach(el=>el.addEventListener('input',()=>{status.textContent='Autosave en cours...'; clearTimeout(window._auto); window._auto=setTimeout(saveDraft,250)}));
+document.addEventListener('DOMContentLoaded', () => {
+
+  document.querySelectorAll('.tabs button').forEach(b => {
+    b.onclick = () => show(b.dataset.view);
+  });
+
+  document.querySelectorAll('input,textarea,select').forEach(el => {
+    el.addEventListener('input', () => {
+      status.textContent = 'Autosave en cours...';
+      clearTimeout(window._auto);
+      window._auto = setTimeout(saveDraft, 250);
+    });
+  });
+
+  loadDraft();
+  render();
+
+});
 function esc(s){return String(s||'').replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]))}
 function money(n){return (Number(n)||0).toFixed(2)+' €'}
 function saveDraft(){const ids=[...document.querySelectorAll('input,textarea,select')].map(x=>x.id).filter(Boolean); const d={}; ids.forEach(id=>d[id]=document.getElementById(id).value); localStorage.setItem(KEY+'_draft', JSON.stringify(d)); status.innerHTML='<span class="ok">Autosave sauvegardé.</span>';}
