@@ -260,8 +260,7 @@ function render(){
   k2.textContent=clients.length;
   k3.textContent=d.planning.length;
   k4.textContent=money((d.invoices||[]).reduce((a,b)=>a+Number(b.total||0),0));
-  last.innerHTML=d.cases.length?d.cases.slice(0,6).map(c=>`<div class="item"><strong>${esc([c.marque,c.modele,c.immat].filter(Boolean).join(' '))}</strong><br><span class="lab">${esc(c.client)} • ${esc(c.ts)}</span></div>`).join(''):'<div class="item">Aucun dossier</div>';
-${esc(p.heure || p.time || "")}</strong><br>${esc(p.client || "")} • ${esc(p.vehicule || p.veh || "")}<br><span class="badge">${esc(p.statut || p.status || "")}</span><div class="lab">${esc(p.travail || p.job || "")}</div><div class="lab">${p.prix ? p.prix + " €" : "Devis à faire"}</div></div>`).join(''):'<div class="item">Aucun RDV</div>';
+  plist.innerHTML=d.planning.length?d.planning.map(p=>`<div class="item"><strong>${esc(p.heure || p.time || "")}</strong><br>${esc(p.client || "")} • ${esc(p.vehicule || p.veh || "")}<br>🚗 ${esc(p.immat || "")} • 📅 ${esc(p.annee || "")}<br><span class="badge">${esc(p.statut || p.status || "")}</span><div class="lab">${esc(p.travail || p.job || "")}</div><div class="lab">${p.prix ? p.prix + " €" : "Devis à faire"}</div></div>`).join(''):'<div class="item">Aucun RDV</div>';
   renderClients();
 }
   function ajouterRDV() {
@@ -290,6 +289,8 @@ ${esc(p.heure || p.time || "")}</strong><br>${esc(p.client || "")} • ${esc(p.v
   const client = document.getElementById("pclient")?.value || "";
   const vehicule = document.getElementById("pvehicule")?.value || "";
   const travail = document.getElementById("pjob")?.value || "";
+    const immat = document.getElementById("pimmat")?.value || "";
+const annee = document.getElementById("pannee")?.value || "";
   const prixInput = document.getElementById("pprix")?.value;
 const prix = prixInput ? Number(prixInput) : null;
 
@@ -305,6 +306,8 @@ const prix = prixInput ? Number(prixInput) : null;
     statut,
     client,
     vehicule,
+    immat,
+    annee,
     travail,
     prix
   };
@@ -316,6 +319,8 @@ const prix = prixInput ? Number(prixInput) : null;
     client,
     tel: "",
     vehicule,
+    immat,
+    annee,
     date,
     status: statut,
     work: travail,
