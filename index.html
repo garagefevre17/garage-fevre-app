@@ -288,12 +288,15 @@ function render(){
   const date = document.getElementById("pdate")?.value || "";
   const heure = document.getElementById("ptime")?.value || "";
   const statut = document.getElementById("pstatus")?.value || "À faire";
-  const client = document.getElementById("pclient")?.value || "";
-  const vehicule = document.getElementById("pvehicule")?.value || "";
-  
-    const immat = document.getElementById("pimmat")?.value || "";
+const client = document.getElementById("pclient")?.value || "";
+const vehicule = document.getElementById("pvehicule")?.value || "";
+const travail = document.getElementById("pjob")?.value || "";
+
+const immat = document.getElementById("pimmat")?.value || "";
 const annee = document.getElementById("pannee")?.value || "";
-  const prixInput = document.getElementById("pprix")?.value;
+
+const prixInput = document.getElementById("pprix")?.value;
+const prix = prixInput ? Number(prixInput) : null;
 const prix = prixInput ? Number(prixInput) : null;
 
   if (!date || !heure || !client) {
