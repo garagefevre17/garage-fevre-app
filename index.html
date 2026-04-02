@@ -361,4 +361,11 @@ plist.innerHTML = d.planning
 
 renderClients();
 }
+function show(view){
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  document.getElementById(view).classList.add('active');
+}
 
+document.querySelectorAll('.tabs button').forEach(b=>{
+  b.onclick = () => show(b.dataset.view);
+});
