@@ -271,53 +271,7 @@ function saveCase(){
   setDb(d); alert('Dossier enregistré');
 }
 
-  const nom = client.value || 'Client';
-  const vehicule = [marque.value, modele.value, immat.value].filter(Boolean).join(' ');
-  const montant = parseFloat(ttc.value || 0).toFixed(2);
-  const date = new Date().toLocaleDateString('fr-FR');
-
-  const html = `
-  <html>
-    <head>
-      <title>Facture Garage Fevre Auto Service</title>
-      <style>
-        body{font-family:Arial;padding:30px}
-        .title{font-size:26px;font-weight:bold;margin-bottom:10px}
-        .box{border:1px solid #ccc;padding:15px;margin-top:15px;border-radius:10px}
-        table{width:100%;margin-top:20px;border-collapse:collapse}
-        td,th{border:1px solid #ccc;padding:10px}
-        .total{margin-top:20px;font-size:20px;font-weight:bold;text-align:right}
-      </style>
-    </head>
-    <body>
-      <div class="title">Garage Fevre Auto Service</div>
-      <div>Date : ${date}</div>
-
-      <div class="box">
-        Client : ${nom}<br>
-        Véhicule : ${vehicule}
-      </div>
-
-      <table>
-        <tr>
-          <th>Prestation</th>
-          <th>Prix</th>
-        </tr>
-        <tr>
-          <td>${rep.value || diag.value || 'Intervention atelier'}</td>
-          <td>${montant} €</td>
-        </tr>
-      </table>
-
-      <div class="total">Total : ${montant} €</div>
-    </body>
-  </html>`;
-
-  const w = window.open('', '_blank');
-  w.document.write(html);
-  w.document.close();
-  w.print();
-}
+  
 function makePrompt(){
   prompt.textContent =
     "Tu es un expert diagnostic auto. Analyse ce cas :\n" +
