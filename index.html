@@ -219,7 +219,13 @@ button.btn{border:none;border-radius:14px;padding:12px 14px;cursor:pointer}
 
 <script>
 const KEY='garage_fevre_final_hebergement';
-function db(){try{return JSON.parse(localStorage.getItem(KEY)||'{"cases":[],"planning":[],"invoices":[]}')}catch(e){return {cases:[],planning:[],invoices:[]}}}
+function db(){
+  try{
+    return JSON.parse(localStorage.getItem(KEY)) || {cases:[], planning:[]};
+  }catch(e){
+    return {cases:[], planning:[]};
+  }
+}
 function setDb(d){localStorage.setItem(KEY,JSON.stringify(d)); render(); status.innerHTML='<span class="ok">Autosave sauvegardé.</span>';}
 function show(v){
   document.querySelectorAll('.view').forEach(x=>x.classList.remove('active'));
