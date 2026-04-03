@@ -286,7 +286,9 @@ function saveCase(){
 }
   setDb(d); alert('Dossier enregistré');
 }
-
+function clearForm(){
+  document.querySelectorAll('input, textarea').forEach(e => e.value = '');
+}
   
 function makePrompt(){
   prompt.textContent =
