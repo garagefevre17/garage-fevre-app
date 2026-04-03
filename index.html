@@ -251,18 +251,7 @@ document.addEventListener('DOMContentLoaded', () => {
   render();
 });
 
-  document.querySelectorAll('input,textarea,select').forEach(el => {
-    el.addEventListener('input', () => {
-      status.textContent = 'Autosave en cours...';
-      clearTimeout(window._auto);
-      window._auto = setTimeout(saveDraft, 250);
-    });
-  });
-
-  loadDraft();
-  render();
-
-});
+  
 function esc(s){return String(s||'').replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]))}
 function money(n){return (Number(n)||0).toFixed(2)+' €'}
 function saveDraft(){const ids=[...document.querySelectorAll('input,textarea,select')].map(x=>x.id).filter(Boolean); const d={}; ids.forEach(id=>d[id]=document.getElementById(id).value); localStorage.setItem(KEY+'_draft', JSON.stringify(d)); status.innerHTML='<span class="ok">Autosave sauvegardé.</span>';}
