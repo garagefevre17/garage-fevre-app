@@ -229,11 +229,23 @@ function show(v){
   document.querySelectorAll('.tabs button').forEach(x=>x.classList.remove('active'));
   document.querySelector('.tabs button[data-view="'+v+'"]').classList.add('active');
 }
-document.addEventListener('DOMContentLoaded', () => {
 
+document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.tabs button').forEach(b => {
     b.onclick = () => show(b.dataset.view);
   });
+
+  document.querySelectorAll('input,textarea,select').forEach(el => {
+    el.addEventListener('input', () => {
+      status.textContent = 'Autosave en cours...';
+      clearTimeout(window._auto);
+      window._auto = setTimeout(saveDraft, 250);
+    });
+  });
+
+  loadDraft();
+  render();
+});
 
   document.querySelectorAll('input,textarea,select').forEach(el => {
     el.addEventListener('input', () => {
