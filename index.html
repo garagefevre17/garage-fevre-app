@@ -278,10 +278,38 @@ function saveCase(){
 }
   setDb(d); alert('Dossier enregistré');
 }
-function clearForm(){
+
+  function clearForm(){
   document.querySelectorAll('input, textarea').forEach(e => e.value = '');
 }
-  
+
+function addPlanning(){
+  const d = db();
+
+  const newRDV = {
+    id: Date.now(),
+    client: document.querySelector('#pclient')?.value || '',
+    veh: document.querySelector('#pveh')?.value || '',
+    immat: document.querySelector('#pimmat')?.value || '',
+    annee: document.querySelector('#pannee')?.value || '',
+    job: document.querySelector('#pjob')?.value || '',
+    prix: document.querySelector('#pprix')?.value || '',
+    date: document.querySelector('#pdate')?.value || '',
+    time: document.querySelector('#ptime')?.value || '',
+    status: document.querySelector('#pstatus')?.value || 'En attente',
+    statut: document.querySelector('#pstatus')?.value || 'En attente'
+  };
+
+  d.planning = d.planning || [];
+  d.planning.unshift(newRDV);
+
+  setDb(d);
+  render();
+
+  alert("RDV enregistré ✅");
+}
+
+function makePrompt(){
 function makePrompt(){
   prompt.textContent =
     "Tu es un expert diagnostic auto. Analyse ce cas :\n" +
