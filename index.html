@@ -396,7 +396,12 @@ plist.innerHTML = d.planning
 🚗 ${esc(p.veh || "")} • ${esc(p.immat || "")}
 
 <div class="lab">${esc(p.job || "")}</div>
-
+<div class="lab">
+  ${(p.statut || p.status) === "Terminé" ? "🟢 Terminé" :
+  (p.statut || p.status) === "Annulé" ? "🔴 Annulé" :
+  "🟡 En attente"}
+  
+</div>
 <div class="lab">
 ${p.prix ? p.prix + " €" : "Devis à faire"}
 </div>
