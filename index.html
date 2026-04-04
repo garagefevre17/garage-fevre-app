@@ -464,7 +464,7 @@ function render(){
     `).join('') || '<div class="item">Aucun RDV</div>';
 
   doneList.innerHTML = (d.planning || [])
-   .filter(p => (p.status === 'Terminé' || p.statut === 'Terminé'))
+ .filter(p => p.status === 'Terminé')
     .sort((a,b) => (String(a.date || '') + String(a.time || '')).localeCompare(String(b.date || '') + String(b.time || '')))
     .map(p => `
       <div class="item">
