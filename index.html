@@ -407,70 +407,80 @@ function deletePlanning(id){
 }
 
 function render(){
-  const d=db();
+  const d = db();
   let changed = false;
-d.planning = d.planning.map((p, i) => {
-  if (p.id == null || p.id === "") {
-    changed = true;
-    return { ...p, id: Date.now() + i };
+
+  d.planning = (d.planning || []).map((p, i) => {
+    if (p.id == null || p.id === "") {
+      changed = true;
+      return { ...p, id: Date.now() + i };
+    }
+    return p;
+  });
+
+  if (changed) {
+    localStorage.setItem(KEY, JSON.stringify(d));
   }
-  return p;
-});
-if (changed) {
-  localStorage.setItem(KEY, JSON.stringify(d));
-}
-  const clients=[...new Set(d.cases.map(x=>x.client).filter(Boolean))];
-  k1.textContent=d.cases.length;
-  k2.textContent=clients.length;
-  k3.textContent=d.planning.length;
-  k4.textContent=money((d.invoices||[]).reduce((a,b)=>a+Number(b.total||0),0));
 
+  const clients = [...new Set((d.cases || []).map(x => x.client).filter(Boolean))];
 
-    
+  k1.textContent = (d.cases || []).length;
+  k2.textContent = clients.length;
+  k3.textContent = (d.planning || []).length;
+  k4.textContent = money((d.invoices || []).reduce((a,b)=>a + Number(b.total || 0), 0));
 
-plist.innerHTML = d.planning
-.sort((a,b)=> (a.date+a.time).localeCompare(b.date+b.time))
-.filter(p => (p.status || "") !== "Terminé")
-.map(p => `
-<div class="item">
-<strong>${esc(p.time || "")}</strong> - ${esc(p.client || "")}<br>
-🚗 ${esc(p.veh || "")} • ${esc(p.immat || "")}
+  plist.innerHTML = (d.planning || [])
+    .sort((a,b) => (String(a.date || '') + String(a.time || '')).localeCompare(String(b.date || '') + String(b.time || '')))
+    .filter(p => (p.status || p.statut || '') !== 'Terminé')
+    .map(p => `
+      <div class="item">
+        <strong>${esc(p.time || '')}</strong> - ${esc(p.client || '')}<br>
+        🚗 ${esc(p.veh || '')} • ${esc(p.immat || '')}
 
-<div class="lab">${esc(p.job || "")}</div>
-<div class="lab">
-  ${(p.statut || p.status) === "Terminé" ? "🟢 Terminé" :
-  (p.statut || p.status) === "Annulé" ? "🔴 Annulé" :
-  "🟡 En attente"}
-  
-</div>
-<div class="lab">
-${p.prix ? p.prix + " €" : "Devis à faire"}
-</div>
+        <div class="lab">${esc(p.job || '')}</div>
 
-<div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap;">
-  <button onclick="setPlanningStatus('${p.id}','Terminé')" style="background:#16a34a;color:#fff;border:none;padding:10px 14px;border-radius:8px;font-weight:bold;">✔ Terminé</button>
-  <button onclick="setPlanningStatus('${p.id}','En cours')" style="background:#f59e0b;color:#111;border:none;padding:10px 14px;border-radius:8px;font-weight:bold;">⏳ En cours</button>
-  <button onclick="cancelPlanning('${p.id}')" style="background:#ef4444;color:#fff;border:none;padding:10px 14px;border-radius:8px;font-weight:bold;">✖ Annuler</button>
-  <button onclick="deletePlanning('${p.id}')" style="background:#333;color:#fff;border:none;padding:10px 14px;border-radius:8px;font-weight:bold;">🗑 Supprimer</button>
-</div>
-</div>
-`).join('') || '<div class="item">Aucun RDV</div>';
-  doneList.innerHTML = d.planning
-.filter(p => (p.status || "") === "Terminé")
-.map(p => `
-<div class="item">
-<strong>${esc(p.time || "")}</strong> - ${esc(p.client || "")}<br>
-🚗 ${esc(p.veh || "")}
+        <div class="lab">
+          ${(p.statut || p.status) === "Terminé" ? "🟢 Terminé" :
+            (p.statut || p.status) === "Annulé" ? "🔴 Annulé" :
+            (p.statut || p.status) === "En cours" ? "🟠 En cours" :
+            "🟡 En attente"}
+        </div>
 
-<div style="color:#16a34a;font-weight:bold;">✔ TERMINÉ</div>
+        <div class="lab">
+          ${p.prix ? p.prix + " €" : "Devis à faire"}
+        </div>
 
-<button onclick="reopenRDV(${p.id})" style="margin-top:8px;background:#f59e0b;color:#111;border:none;padding:8px 12px;border-radius:8px;">
-  ↩ Reprendre
-</button>
-</div>
-`).join('') || '<div class="item">Aucun véhicule terminé</div>';
+        <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap;">
+          <button onclick="setPlanningStatus('${p.id}','Terminé')" style="background:#16a34a;color:#fff;border:none;padding:10px 14px;border-radius:8px;font-weight:bold;">✔ Terminé</button>
+          <button onclick="setPlanningStatus('${p.id}','En cours')" style="background:#f59e0b;color:#111;border:none;padding:10px 14px;border-radius:8px;font-weight:bold;">⏳ En cours</button>
+          <button onclick="cancelPlanning('${p.id}')" style="background:#ef4444;color:#fff;border:none;padding:10px 14px;border-radius:8px;font-weight:bold;">✖ Annuler</button>
+          <button onclick="deletePlanning('${p.id}')" style="background:#333;color:#fff;border:none;padding:10px 14px;border-radius:8px;font-weight:bold;">🗑 Supprimer</button>
+        </div>
+      </div>
+    `).join('') || '<div class="item">Aucun RDV</div>';
 
-renderClients();
+  doneList.innerHTML = (d.planning || [])
+    .filter(p => (p.status || p.statut || '') === 'Terminé')
+    .sort((a,b) => (String(a.date || '') + String(a.time || '')).localeCompare(String(b.date || '') + String(b.time || '')))
+    .map(p => `
+      <div class="item">
+        <strong>${esc(p.time || '')}</strong> - ${esc(p.client || '')}<br>
+        🚗 ${esc(p.veh || '')}
+
+        <div style="color:#16a34a;font-weight:bold;">✔ TERMINÉ</div>
+
+        <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap;">
+          <button onclick="reopenRDV(${p.id})" style="background:#f59e0b;color:#111;border:none;padding:10px 14px;border-radius:8px;font-weight:bold;">
+            ↩ Reprendre
+          </button>
+          <button onclick="deletePlanning('${p.id}')" style="background:#333;color:#fff;border:none;padding:10px 14px;border-radius:8px;font-weight:bold;">
+            🗑 Supprimer
+          </button>
+        </div>
+      </div>
+    `).join('') || '<div class="item">Aucun véhicule terminé</div>';
+
+  renderClients();
 }
 </script>
 </body>
