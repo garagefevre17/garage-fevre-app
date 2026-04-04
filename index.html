@@ -159,8 +159,9 @@ button.btn{border:none;border-radius:14px;padding:12px 14px;cursor:pointer}
   <label>Montant estimé TTC (optionnel)</label>
   <input id="pprix" type="number" placeholder="Laisser vide si inconnu">
 </div>
-        <button class="btn primary" onclick="addPlanning()">Enregistrer le RDV</button>
-    <div class="card">
+<button class="btn primary" onclick="addPlanning()">Enregistrer le RDV</button>
+
+<div class="card">
   <h3>RDV enregistrés</h3>
   <div id="plist"></div>
 </div>
@@ -169,17 +170,18 @@ button.btn{border:none;border-radius:14px;padding:12px 14px;cursor:pointer}
   <h3>Véhicules terminés</h3>
   <div id="doneList"></div>
 </div>
-    </div>
-  </section>
 
-  <section id="clients" class="view">
-    <div class="card">
-      <h3>Clients</h3>
-      <label>Recherche</label>
-      <input id="search" oninput="renderClients()" placeholder="Nom, véhicule, immat">
-      <div id="clist"></div>
-    </div>
-  </section>
+</div>
+</section>
+
+<section id="clients" class="view">
+  <div class="card">
+    <h3>Clients</h3>
+    <label>Recherche</label>
+    <input id="search" oninput="renderClients()" placeholder="Nom, véhicule, immat">
+    <div id="clist"></div>
+  </div>
+</section>
 
   <section id="sms" class="view">
     <div class="grid g2">
