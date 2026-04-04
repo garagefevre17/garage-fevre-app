@@ -313,7 +313,7 @@ function addPlanning(){
 function reopenRDV(id){
   const d = db();
 
-  const item = d.planning.find(x => x.id === id);
+  const item = d.planning.find(x => String(x.id) === String(id));
   if(!item) return;
 
   item.status = "En cours";
@@ -464,9 +464,9 @@ ${p.prix ? p.prix + " €" : "Devis à faire"}
 
 <div style="color:#16a34a;font-weight:bold;">✔ TERMINÉ</div>
 
-<div style="margin-top:8px;">
-<button onclick="reopenRDV(${p.id})" style="background:#f59e0b;color:#111;">↩ Reprendre</button>
-</div>
+<button onclick="reopenRDV(${p.id})" style="margin-top:8px;background:#f59e0b;color:#111;border:none;padding:8px 12px;border-radius:8px;">
+  ↩ Reprendre
+</button>
 </div>
 `).join('') || '<div class="item">Aucun véhicule terminé</div>';
 
