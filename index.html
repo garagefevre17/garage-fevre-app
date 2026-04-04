@@ -310,7 +310,18 @@ function addPlanning(){
 
   alert("RDV enregistré ✅");
 }
+function reopenRDV(id){
+  const d = db();
 
+  const item = d.planning.find(x => x.id === id);
+  if(!item) return;
+
+  item.status = "En cours";
+  item.statut = "En cours";
+
+  setDb(d);
+  render();
+}
 
 function makePrompt(){
   prompt.textContent =
@@ -452,6 +463,10 @@ ${p.prix ? p.prix + " €" : "Devis à faire"}
 🚗 ${esc(p.veh || "")}
 
 <div style="color:#16a34a;font-weight:bold;">✔ TERMINÉ</div>
+
+<div style="margin-top:8px;">
+<button onclick="reopenRDV(${p.id})" style="background:#f59e0b;color:#111;">↩ Reprendre</button>
+</div>
 </div>
 `).join('') || '<div class="item">Aucun véhicule terminé</div>';
 
